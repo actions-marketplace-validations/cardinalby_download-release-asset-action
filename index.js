@@ -19,5 +19,5 @@
         asset_id: assetId
     })).data;
     await fs.ensureFile(env.TARGET_PATH);
-    await fs.writeFile(env.TARGET_PATH, data);
+    await fs.writeFile(env.TARGET_PATH, Buffer.from(data));
 })()
