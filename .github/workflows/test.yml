@@ -1,0 +1,59 @@
+name: "test"
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  functionalSelfTest:
+    runs-on: ubuntu-latest
+    env:
+      PNG_TARGET: 'tests/nested/test.downloaded.png'
+    steps:
+      - uses: actions/checkout@v2
+
+      - id: downloadPng
+        name: Downlod PNG asset
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # release 0.0.1
+          assetId: '53281957'
+          targetPath: ${{ env.PNG_TARGET }}
+
+      - name: Check downloadPng result
+        run: >
+          if [ ! -f $FILE ]; then 
+            exit 1
+          fi
+
+      - id: downloadPng2
+        name: Downlod PNG asset 2
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # release 0.0.1
+          assetId: '53281957'
+          targetPath: ${{ env.PNG_TARGET }}
+          repo: cardinalby/download-release-asset-action
+
+      - name: Check downloadPng result
+        run: >
+          if [ ! -f $FILE ]; then 
+            exit 1
+          fi
+        
+      - id: failedDownload
+        name: Failed download
+        uses: ./
+        continue-on-error: true
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          assetId: '99999999999999'
+          targetPath: ${{ env.PNG_TARGET }}
+
+      - name: Check failedDownload result
+        if: steps.failedDownload.outcome == 'success'
+        run: exit 1

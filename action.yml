@@ -11,7 +11,9 @@ inputs:
   targetPath:
     description: "Path to save an asset file"
     required: true
-
+  repo:
+    description: "Repo in format 'owner/name'. Current is default"
+    required: false
 runs:
   using: "composite"
   steps:
@@ -20,5 +22,6 @@ runs:
         GITHUB_TOKEN: ${{ inputs.token }}
         ASSET_ID: ${{ inputs.assetId }}
         TARGET_PATH: ${{ inputs.targetPath }}
+        REPO: ${{ inputs.repo }}
       with:
         jsFile: ${{ github.action_path }}index.js
