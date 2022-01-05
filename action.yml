@@ -1,0 +1,24 @@
+name: 'download-release-asset-action'
+description: "Downloads release asset by id"
+
+inputs:
+  token:
+    description: "GitHub token"
+    required: true
+  assetId:
+    description: "Asset id"
+    required: true
+  targetPath:
+    description: "Path to save an asset file"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: cardinalby/js-eval-action@v1
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        ASSET_ID: ${{ inputs.assetId }}
+        TARGET_PATH: ${{ inputs.targetPath }}
+      with:
+        jsFile: ${{ github.action_path }}index.js
