@@ -17,7 +17,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: cardinalby/js-eval-action@v1
+    - uses: cardinalby/js-eval-action@testPkg
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
         ASSET_ID: ${{ inputs.assetId }}
