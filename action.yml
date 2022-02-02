@@ -24,4 +24,4 @@ runs:
         TARGET_PATH: ${{ inputs.targetPath }}
         REPO: ${{ inputs.repo }}
       with:
-        jsFile: ${{ github.action_path }}index.js
+        jsFile: ${{ github.action_path }}/index.js
