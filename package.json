@@ -1,6 +1,6 @@
 {
   "name": "download-release-asset-action",
   "devDependencies": {
-    "js-eval-action-expression-context": "^0.0.2"
+    "js-eval-action-expression-context": "^1.0.6"
   }
 }
